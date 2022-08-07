@@ -1,0 +1,89 @@
+﻿@model IEnumerable<BdCoin.Models.chain>
+
+@{
+    ViewData["Title"] = "Transaction";
+}
+<section class="container" style="background-color: white;">
+    <div class="row" style="background-color: white; text-align:center">
+        <div class="col-4">
+
+        </div>
+        <div class="col-4">
+            <h2>Transaction</h2>
+        </div>
+        <div class="col-4">
+
+        </div>
+        <br><br><br><br>
+    </div>
+    <div class="row" style="background-color: white;">
+        <div class="col-2">
+
+        </div>
+        <div class="col-8">
+            <table id="myTable" class="table table-striped table-bordered" style="background-color: white;">
+                <thead>
+                    <tr>
+                        <th>Sl</th>
+                        <th>Index</th>
+                        <th>Timestamp</th>
+                        <th>
+                            @*Transaction Details*@
+                            @*(Transaction Number/Amount/Receiver/Sender)*@
+                            TId-Amount-Receiver-----Sender
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int sl = 1;}
+
+                    @foreach (var c in Model)
+                    {
+                        <tr>
+                            <td>@(sl++)</td>
+                            <td>@c.index</td>
+                            <td>@c.timestamp</td>
+                            <td>
+                                <table id="myTable" class="table table-striped table-bordered" style="background-color: white;">
+                                    @*<thead>
+                                            <tr>
+                                                <td>SL</td>
+                                                <th>Amount</th>
+                                                <th>Receiver</th>
+                                                <th>Sender</th>
+                                            </tr>
+                                        </thead>*@
+                                    <tbody>
+                                        @{int sla = 1;}
+
+                                        @foreach (var t in c.transactions)
+                                        {
+                                            <tr>
+                                                <td>@(sla++)</td>
+                                                <td>@t.amount</td>
+                                                <td>@t.receiver</td>
+                                                <td>@t.sender</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-2">
+
+        </div>
+    </div>
+</section>
+
+@section MyScript
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#myTable").DataTable();
+        });
+    </script>
+}

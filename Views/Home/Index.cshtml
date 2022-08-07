@@ -1,0 +1,141 @@
+﻿@model BdCoin.Models.Blockchain
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<section class="content" style="background-color:white;">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>@Model.length</h3>
+
+                        <p>Number of blocks in Blockchain </p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+                    <a href="https://localhost:44318/Home/Blockchain" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>৳ @Model.balance<sup style="font-size: 20px">Tk</sup></h3>
+
+                        <p>User Balance</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="https://localhost:44318/Home/Transaction" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>@Model.number_of_transactions</h3>
+
+                        <p>Total Transactions</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-add"></i>
+                    </div>
+                    <a href="https://localhost:44318/Home/Transaction" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>@Model.number_of_mine</h3>
+
+                        <p>Total Block Mines by user</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-pie-graph"></i>
+                    </div>
+                    <a href="https://localhost:44318/Home/Chain" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card bg-light">
+
+                <table id="myTable" class="table table-striped table-bordered" style="background-color: white;">
+                    <thead>
+                        <tr>
+                            <th>Sl</th>
+                            <th>Index</th>
+                            <th>Timestamp</th>
+                            <th>
+                                @*Transaction Details*@
+                                @*(Transaction Number/Amount/Receiver/Sender)*@
+                                ``TId-----Amount----Receiver----------Sender
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int sl = 1;}
+
+                        @foreach (var c in Model.chain)
+                        {
+                            <tr>
+                                <td>@(sl++)</td>
+                                <td>@c.index</td>
+                                <td>@c.timestamp</td>
+                                <td>
+                                    <table id="myTable" class="table table-striped table-bordered" style="background-color: white;">
+                                        @*<thead>
+                                                <tr>
+                                                    <td>SL</td>
+                                                    <th>Amount</th>
+                                                    <th>Receiver</th>
+                                                    <th>Sender</th>
+                                                </tr>
+                                            </thead>*@
+                                        <tbody>
+                                            @{int sla = 1;}
+
+                                            @foreach (var t in c.transactions)
+                                            {
+                                                <tr>
+                                                    <td>@(sla++)</td>
+                                                    <td>@t.amount</td>
+                                                    <td>@t.receiver</td>
+                                                    <td>@t.sender</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@section MyScript
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#myTable").DataTable();
+        });
+    </script>
+}
